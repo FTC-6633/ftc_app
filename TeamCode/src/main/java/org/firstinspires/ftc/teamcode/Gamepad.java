@@ -65,6 +65,9 @@ public class Gamepad extends OpMode {
         dc_rear_right.setPower(rightPower);
     }
 
+    /**
+     * This is the stop function.
+     */
     @Override
     public void stop() {
         dc_drive_left.setPower(0);
