@@ -47,10 +47,14 @@ public class Gamepad extends OpMode {
 
     }
 
+    /**
+     * This method continuously gets called by the software. This is where
+     * main event loop is and where we will control everything.
+     */
     @Override
     public void loop() {
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
+        double drive = gamepad1.left_stick_y;
+        double turn  = -gamepad1.right_stick_x;
         double leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         double rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
