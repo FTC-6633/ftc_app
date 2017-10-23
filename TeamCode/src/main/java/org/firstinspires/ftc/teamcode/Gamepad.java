@@ -66,7 +66,7 @@ public class Gamepad extends OpMode {
     }
 
     /**
-     * This is the stop function.
+2     * This is the stop function.
      */
     @Override
     public void stop() {
