@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 /**
- * Created by Alec on 10/13/2017.
+ * Created by Alec, Aarush, Justin, and Roman on 10/13/2017.
  */
 
 @TeleOp(name="Gamepad", group="Tutorial")

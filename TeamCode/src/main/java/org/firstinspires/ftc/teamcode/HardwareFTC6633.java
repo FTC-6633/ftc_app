@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
- * Created by Alec on 10/2/2017.
+ * Created by Alec, Aarush, Justin, and Roman on 10/2/2017.
  */
 
 public class HardwareFTC6633 {
