@@ -25,7 +25,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name="Backward", group="Pushbot")
 //@Disabled
-public class Backward extends LinearOpMode {
+public class _Backward extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwarePushbot robot           = new HardwarePushbot();   // Use a Pushbot's hardware
