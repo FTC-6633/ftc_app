@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 
 
 /**
- * Created by Alec, Aarush, Justin, and Roman on 10/13/2017.
+ * Created by FTC6633 on 10/13/2017.
  */
 
 @TeleOp(name="Tutorial", group="Tutorial")

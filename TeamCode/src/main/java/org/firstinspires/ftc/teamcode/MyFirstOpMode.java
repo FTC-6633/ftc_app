@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Alec, Aarush, Justin, and Roman on 10/13/2017.
+ * Created by FTC6633 on 10/13/2017.
  */
 
 public class MyFirstOpMode extends LinearOpMode
