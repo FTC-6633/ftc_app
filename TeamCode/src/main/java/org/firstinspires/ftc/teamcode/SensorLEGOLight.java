@@ -44,6 +44,10 @@ import com.qualcomm.robotcore.hardware.LightSensor;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
+
+/*
+Created by aarushsivanesan on 10/28/17
+ */
 @TeleOp(name = "Sensor: LEGO light", group = "Sensor")
 public class SensorLEGOLight extends LinearOpMode {
 
