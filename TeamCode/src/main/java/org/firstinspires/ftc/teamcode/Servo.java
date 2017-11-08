@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.util.Range;
  * Created by Alec on 10/13/2017.
  */
 
-@TeleOp(name="Gamepad", group="Tutorial")
+@TeleOp(name="Servo", group="Tutorial")
 //@Disabled
-public class Gamepad extends OpMode {
+public class Servo extends OpMode {
 
     /*****************************************
      *  Motor Controllers
