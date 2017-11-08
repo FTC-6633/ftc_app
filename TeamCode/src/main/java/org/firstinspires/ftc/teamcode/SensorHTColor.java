@@ -27,21 +27,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-<<<<<<< HEAD
-=======
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
 
->>>>>>> origin/alpha
-package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-<<<<<<< HEAD
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-=======
->>>>>>> origin/alpha
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
@@ -56,16 +57,12 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-<<<<<<< HEAD
-@Autonomous(name = "Sensor: HT color", group = "Sensor")
-@Disabled
-=======
+
 
 /*
 Created by aarushsivanesan on 10/28/17
  */
 @Autonomous(name = "Sensor: HT color", group = "Sensor")
->>>>>>> origin/alpha
 public class SensorHTColor extends LinearOpMode {
 
   ColorSensor colorSensor;  // Hardware Device Object
