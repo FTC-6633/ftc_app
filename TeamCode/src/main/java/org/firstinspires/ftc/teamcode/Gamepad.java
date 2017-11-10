@@ -42,6 +42,7 @@ public class Gamepad extends OpMode {
     double rightClawPosition = 0;
 
     final double CLAW_SPEED = 0.02;
+    double clawOffset = 0;
 
 
     @Override
@@ -103,18 +104,17 @@ public class Gamepad extends OpMode {
         dc_rear_right.setPower(rightPower);
 
         // Grabbing things
-        double clawOffset = 0;
         if (gamepad1.right_bumper) {
             clawOffset += CLAW_SPEED;
         } else if (gamepad1.left_bumper) {
             clawOffset -= CLAW_SPEED;
         }
 
-
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        leftClaw.setPosition(clawOffset);
-        rightClaw.setPosition(clawOffset);
-
+        if (gamepad1.right_bumper || gamepad1.left_bumper) {
+            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+            leftClaw.setPosition(clawOffset);
+            rightClaw.setPosition(clawOffset);
+        }
         double liftPower = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
         liftMotor.setPower(liftPower);
     }
