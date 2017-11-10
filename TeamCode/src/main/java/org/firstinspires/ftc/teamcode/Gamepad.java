@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.matrix.MatrixDcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -20,6 +23,8 @@ public class Gamepad extends OpMode {
      */
     private DcMotorController dc_drive_controller;
     private DcMotorController dc_drive_controller2;
+    private MatrixDcMotorController lift_controller;
+    private ServoController claw_controller;
 
     /*****************************************
      *  Motors Userd
@@ -29,11 +34,22 @@ public class Gamepad extends OpMode {
     private DcMotor dc_rear_left;
     private DcMotor dc_rear_right;
 
+    private DcMotor liftMotor;
+
+    private Servo leftClaw;
+    private Servo rightClaw;
+
 
     @Override
     public void init() {
         dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
         dc_drive_controller2 = hardwareMap.dcMotorController.get("drive_controller2");
+        lift_controller = hardwareMap.get(MatrixDcMotorController.class, "lift_controller");
+
+        // Define claw controller
+        claw_controller = hardwareMap.get(ServoController.class, "claw_controller");
+        // Enable Servos
+        claw_controller.pwmEnable();
 
         dc_drive_left = hardwareMap.dcMotor.get("drive_left");
         dc_drive_right = hardwareMap.dcMotor.get("drive_right");
@@ -44,6 +60,11 @@ public class Gamepad extends OpMode {
         dc_rear_right = hardwareMap.dcMotor.get("rear_right");
         dc_rear_left.setDirection(DcMotor.Direction.FORWARD);
         dc_rear_right.setDirection(DcMotor.Direction.REVERSE);
+
+        leftClaw = hardwareMap.get(Servo.class, "claw1");
+        rightClaw = hardwareMap.get(Servo.class, "claw2");
+
+        liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
 
     }
 
@@ -71,6 +92,13 @@ public class Gamepad extends OpMode {
 
         dc_rear_left.setPower(leftPower);
         dc_rear_right.setPower(rightPower);
+
+        // Lifting things
+        double clawOffset = Range.clip(gamepad1.right_trigger, -0.5, 0.5);
+        leftClaw.setPosition(clawOffset);
+
+        double liftPower = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
+        liftMotor.setPower(liftPower);
     }
 
     /**
