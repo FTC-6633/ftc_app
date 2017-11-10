@@ -41,6 +41,9 @@ public class Gamepad extends OpMode {
     double leftClawPosition = 0;
     double rightClawPosition = 0;
 
+    final double CLAW_SPEED = 0.02;
+
+
     @Override
     public void init() {
         dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
@@ -66,11 +69,9 @@ public class Gamepad extends OpMode {
         leftClaw = hardwareMap.get(Servo.class, "claw1");
         leftClaw.setDirection(Servo.Direction.REVERSE);
         leftClawPosition = leftClaw.getPosition();
-        //leftClaw.setPosition(leftClawPosition);
 
         rightClaw = hardwareMap.get(Servo.class, "claw2");
         rightClawPosition = rightClaw.getPosition();
-        //rightClaw.setPosition(rightClawPosition);
 
         liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
 
@@ -101,9 +102,18 @@ public class Gamepad extends OpMode {
         dc_rear_left.setPower(leftPower);
         dc_rear_right.setPower(rightPower);
 
-        // Lifting things
-        double clawOffset = Range.clip(gamepad1.right_trigger, -0.5, 0.5);
+        // Grabbing things
+        double clawOffset = 0;
+        if (gamepad1.right_bumper) {
+            clawOffset += CLAW_SPEED;
+        } else if (gamepad1.left_bumper) {
+            clawOffset -= CLAW_SPEED;
+        }
+
+
+        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
         leftClaw.setPosition(clawOffset);
+        rightClaw.setPosition(clawOffset);
 
         double liftPower = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
         liftMotor.setPower(liftPower);
