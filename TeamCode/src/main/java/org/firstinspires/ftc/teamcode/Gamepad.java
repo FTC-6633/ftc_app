@@ -39,6 +39,8 @@ public class Gamepad extends OpMode {
     private Servo leftClaw;
     private Servo rightClaw;
 
+    double leftClawPosition = 0;
+    double rightClawPosition = 0;
 
     @Override
     public void init() {
@@ -62,7 +64,13 @@ public class Gamepad extends OpMode {
         dc_rear_right.setDirection(DcMotor.Direction.REVERSE);
 
         leftClaw = hardwareMap.get(Servo.class, "claw1");
+        leftClaw.setDirection(Servo.Direction.REVERSE);
+        leftClawPosition = leftClaw.getPosition();
+        leftClaw.setPosition(leftClawPosition);
+
         rightClaw = hardwareMap.get(Servo.class, "claw2");
+        rightClawPosition = rightClaw.getPosition();
+        rightClaw.setPosition(rightClawPosition);
 
         liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
 
