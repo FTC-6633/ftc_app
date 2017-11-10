@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.matrix.MatrixDcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.util.Range;
 
@@ -23,7 +22,7 @@ public class Gamepad extends OpMode {
      */
     private DcMotorController dc_drive_controller;
     private DcMotorController dc_drive_controller2;
-    private MatrixDcMotorController lift_controller;
+    private DcMotorController lift_controller;
     private ServoController claw_controller;
 
     /*****************************************
@@ -46,7 +45,8 @@ public class Gamepad extends OpMode {
     public void init() {
         dc_drive_controller = hardwareMap.dcMotorController.get("drive_controller");
         dc_drive_controller2 = hardwareMap.dcMotorController.get("drive_controller2");
-        lift_controller = hardwareMap.get(MatrixDcMotorController.class, "lift_controller");
+        //lift_controller = hardwareMap.get(MatrixDcMotorController.class, "lift_controller");
+        lift_controller = hardwareMap.dcMotorController.get("lift_controller");
 
         // Define claw controller
         claw_controller = hardwareMap.get(ServoController.class, "claw_controller");
