@@ -111,7 +111,7 @@ public class Gamepad extends OpMode {
         }
 
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
-            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
+            clawOffset = Range.clip(clawOffset, 0.0, 1.0);
             leftClaw.setPosition(clawOffset);
             rightClaw.setPosition(clawOffset);
         }
