@@ -43,6 +43,8 @@ public class Gamepad extends OpMode {
     double rightClawPosition = 0;
 
     final double CLAW_SPEED = 0.02;
+    final double CLAW_LIMIT = 0.60;
+
     double clawOffset = 0;
 
 
@@ -70,13 +72,14 @@ public class Gamepad extends OpMode {
 
         leftClaw = hardwareMap.get(Servo.class, "claw1");
         leftClaw.setDirection(Servo.Direction.REVERSE);
+        leftClaw.setPosition(0);
         leftClawPosition = leftClaw.getPosition();
 
         rightClaw = hardwareMap.get(Servo.class, "claw2");
+        rightClaw.setPosition(0);
         rightClawPosition = rightClaw.getPosition();
 
         liftMotor = hardwareMap.get(DcMotor.class, "lift_motor");
-
     }
 
     /**
@@ -86,14 +89,7 @@ public class Gamepad extends OpMode {
     @Override
     public void loop() {
         double drive = gamepad1.left_stick_y;
-        double turn  = -gamepad1.right_stick_x;
-
-        telemetry.addData("Drive", drive);
-        telemetry.addData("Turn", drive);
-        telemetry.addData("LSX", gamepad1.left_stick_x);
-        telemetry.addData("RSY", gamepad1.right_stick_y);
-        telemetry.update();
-
+        double turn  = -gamepad1.left_stick_x;
 
         double leftPower    = Range.clip((drive + turn/2)/2, -1.0, 1.0) ;
         double rightPower   = Range.clip((drive - turn/2)/2, -1.0, 1.0) ;
@@ -111,13 +107,40 @@ public class Gamepad extends OpMode {
             clawOffset -= CLAW_SPEED;
         }
 
+        // Claw differential is to help the two arms close without clashing with each other
+        // Because of the differential, they are offset by a small amount.
+        double CLAW_DIFF = 0.01;
         if (gamepad1.right_bumper || gamepad1.left_bumper) {
-            clawOffset = Range.clip(clawOffset, 0.0, 1.0);
-            leftClaw.setPosition(clawOffset);
-            rightClaw.setPosition(clawOffset);
+            clawOffset = Range.clip(clawOffset, CLAW_DIFF, CLAW_LIMIT);
+            leftClaw.setPosition(clawOffset+CLAW_DIFF);
+            rightClaw.setPosition(clawOffset-CLAW_DIFF);
         }
-        double liftPower = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
-        liftMotor.setPower(liftPower);
+
+        // The code below allows the lift to be operated via D-Pad up and down buttons
+        if (gamepad1.dpad_down)
+        {
+            liftMotor.setPower(0.75);
+        }
+        else if (gamepad1.dpad_up)
+        {
+            liftMotor.setPower(-0.75);
+        }
+        else {
+            double liftPower = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
+            liftMotor.setPower(liftPower);
+        }
+
+        // This information is helpful for debugging
+        leftClawPosition = leftClaw.getPosition();
+        rightClawPosition = rightClaw.getPosition();
+
+        telemetry.addData("clawOffset", clawOffset);
+        telemetry.addData("leftClaw", leftClawPosition);
+        telemetry.addData("rightClaw", rightClawPosition);
+        telemetry.update();
+
+
+
     }
 
     /**
